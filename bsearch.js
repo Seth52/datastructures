@@ -75,33 +75,64 @@ prettyPrint(node = this.root, prefix = "", isLeft = true) {
       // Case 2: Node has only a right child
       else if (currentNode.leftChild === null) {
         let replacement = currentNode.rightChild;
-        currentNode.data = replacement.data;
-        currentNode.rightChild = replacement.rightChild;
-        currentNode.leftChild = replacement.leftChild;
+        currentNode = replacement;
+        console.log('test1');
         return currentNode;
       }
       // Case 3: Node has only a left child
       else if (currentNode.rightChild === null) {
         let replacement = currentNode.leftChild;
-        currentNode.data = replacement.data;
-        currentNode.rightChild = replacement.rightChild;
-        currentNode.leftChild = replacement.leftChild;
+        currentNode=replacement;
+      console.log('test2');
         return currentNode;
       }
       // Case 4: Node has both left and right children
       else {
         let successor = currentNode.rightChild;
-        let successorParent = currentNode;
+        let successorParent = currentNode;      
+        console.log('test3');
         while (successor.leftChild !== null) {
-          successorParent = successor;
-          successor = successor.leftChild;
+          successorParent = successor; 
+          successor = successor.leftChild; 
+         console.log('test4');
         }
-        currentNode.data = successor.data;
-        successorParent.leftChild = successor.rightChild;
+        if (successorParent !== currentNode) {
+          successorParent.leftChild = successor.rightChild;
+        } else {
+          successorParent.rightChild = successor.rightChild;
+        }
+         // Assign the left and right child pointers to the successor node
+        successor.leftChild = currentNode.leftChild;
+        successor.rightChild = currentNode.rightChild;
+
+  // Update the current node with the successor node
+        currentNode = successor;
         return currentNode;
       }
     }
   }
+
+  find(value, currentNode = this.root){
+
+
+
+
+
+    
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

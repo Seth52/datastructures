@@ -13,7 +13,7 @@ delete(value, currentNode= this.root){
           currentNode.rightChild=this.delete(value, currentNode.rightChild);
           console.log(2);
           return currentNode;
-        }
+        }else{
     
         // this will then generate a current node that is not less than the current node or greater than and it will move 
         // on to the next step
@@ -21,23 +21,22 @@ delete(value, currentNode= this.root){
         //delete with no leafs
         if(currentNode.left === null && currentNode.right === null){
           currentNode = null;
-          console.log('why');
-          return currentNode;
+         return currentNode;
         }
        else if(currentNode.left === null){
           let replacement = currentNode.rightChild;
           currentNode.data = replacement.data;
           replacement = null;
-          console.log('hi')
           return currentNode;
-       }else if(currentNode.right === null){
+       }
+       else if(currentNode.right === null){
           let replacement = currentNode.leftChild;
           currentNode.data = replacement.data;
           replacement = null;
-          console.log('bye');
           return currentNode;
           
-        }else{
+        }
+        else{
           let successor = currentNode.rightChild;
           let successorParent = currentNode;
           while(successor.leftChild !==null){
@@ -49,4 +48,4 @@ delete(value, currentNode= this.root){
          return currentNode;
          
         }
-      }
+      }}
