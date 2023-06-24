@@ -8,7 +8,7 @@ class Node{
     }
 
 
-}// having it likes this is useful for when u might not have left or right 
+}// having it default null is useful for when u might not have left or right 
 
 class Tree{
     
@@ -39,7 +39,87 @@ prettyPrint(node = this.root, prefix = "", isLeft = true) {
     }
   }
 
-}
+  insert(value, currentNode = this.root) {
+    if (currentNode === null) {
+      return new Node(value);
+    }
+    if (currentNode.data === value) {
+      return currentNode;
+    }
+    if (value < currentNode.data) {
+      currentNode.leftChild = this.insert(value, currentNode.leftChild);
+    } else {
+      currentNode.rightChild = this.insert(value, currentNode.rightChild);
+    }
+    return currentNode;
+  }
+
+   delete(value, currentNode = this.root) {
+    if (currentNode === null) return currentNode; // Base case: value not found
+  
+    // Find the node
+    if (value < currentNode.data) {
+      currentNode.leftChild = this.delete(value, currentNode.leftChild);
+      return currentNode;
+    } else if (value > currentNode.data) {
+      currentNode.rightChild = this.delete(value, currentNode.rightChild);
+      return currentNode;
+    } else {
+      // Node found, handle deletion based on child nodes
+  
+      // Case 1: Node has no children
+      if (currentNode.leftChild === null && currentNode.rightChild === null) {
+        currentNode = null;
+        return currentNode;
+      }
+      // Case 2: Node has only a right child
+      else if (currentNode.leftChild === null) {
+        let replacement = currentNode.rightChild;
+        currentNode.data = replacement.data;
+        currentNode.rightChild = replacement.rightChild;
+        currentNode.leftChild = replacement.leftChild;
+        return currentNode;
+      }
+      // Case 3: Node has only a left child
+      else if (currentNode.rightChild === null) {
+        let replacement = currentNode.leftChild;
+        currentNode.data = replacement.data;
+        currentNode.rightChild = replacement.rightChild;
+        currentNode.leftChild = replacement.leftChild;
+        return currentNode;
+      }
+      // Case 4: Node has both left and right children
+      else {
+        let successor = currentNode.rightChild;
+        let successorParent = currentNode;
+        while (successor.leftChild !== null) {
+          successorParent = successor;
+          successor = successor.leftChild;
+        }
+        currentNode.data = successor.data;
+        successorParent.leftChild = successor.rightChild;
+        return currentNode;
+      }
+    }
+  }
+
+
+
+
+
+  }
+
+
+  //take the rightnode of the node that needs to be deleted
+  // go as far left as you can on that node 
+  //take that node's value ...remove it from current position
+  //put that node at spot where deleted node will be
+  //delete the other node
+
+
+
+
+
 
 
 //initialize start = 0, end = length of the array -1
