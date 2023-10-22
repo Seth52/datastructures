@@ -1,3 +1,7 @@
+function printMe(node){
+  console.log(node.data)
+}//can use this as a callbackfn for level order to print the nodes 
+
 class Node{
     
     constructor(data, leftChild = null, rightChild = null){
@@ -101,7 +105,9 @@ prettyPrint(node = this.root, prefix = "", isLeft = true) {
         } else {
           successorParent.rightChild = successor.rightChild;
         }
-         // Assign the left and right child pointers to the successor node
+         // Assign the left and right child pointers to the successor node -- have to assing the left tree that is hanging out there to the new node -- so 
+         // when we take the successor the new value we must take the current nodes left andright children and assign it so that it keeps those nodes in tact otherwise
+         //they get deleted 
         successor.leftChild = currentNode.leftChild;
         successor.rightChild = currentNode.rightChild;
 
@@ -113,20 +119,64 @@ prettyPrint(node = this.root, prefix = "", isLeft = true) {
   }
 
   find(value, currentNode = this.root){
-
-
-
-
-
-    
+    if (value === currentNode.data || currentNode === null){return currentNode}
+    if (value < currentNode.data) {
+      return this.find(value, currentNode.leftChild);
+    } else  {
+      return this.find(value, currentNode.rightChild);
+     
+  
   }
+      }
+
+levelOrder(callbackFn){
+//need a base case
+// start with the root node
+//put the root node in the q 
+//if has left or right nodes// put those in q and then put root node in
+//visited aray. 
+//recursively do the same thing for the other nodes
+const q = [this.root];
+const levelOrder = [];
+
+while(q.length > 0){
+if(q[0].leftChild){q.push(q[0].leftChild)};
+if(q[0].rightChild){q.push(q[0].rightChild)};
+if(callbackFn)callbackFn(q[0])
+
+levelOrder.push(q.shift());
+
+}
 
 
+if(!callbackFn)return levelOrder;
+
+//could assign currentNode = q.shift() -- so that it is assigned the variable of the removed node. 
+//then could use currentNode instead of q[0] in callback and q.shift in levelorder push
+
+}
+
+inorder(callbackFn,currentNode=this.root,inorderList=[]){
+// order is leftchild-> parent -> right child
 
 
+if (currentNode === null)return;
 
 
+if(currentNode.leftChild){this.inorder(callbackFn,currentNode.leftChild, inorderList)};
+callbackFn ? callbackFn(currentNode) : inorderList.push(currentNode.data);
+if(currentNode.rightChild){this.inorder(callbackFn,currentNode.rightChild,inorderList)};
+if(inorderList.length >0) return inorderList;
 
+/*q.push(currentNode);
+if(currentNode.leftChild){this.inorder(currentNode=currentNode.leftChild);}
+else if(currentNode.rightChild){results.push(q.pop());this.inorder(currentNode=currentNode.rightChild);}
+else{currentNode = q[q.length-1];this.inorder(currentNode) }
+
+return results*/
+
+}
+ 
 
 
 
@@ -160,3 +210,6 @@ prettyPrint(node = this.root, prefix = "", isLeft = true) {
 //recursively calc mid of right subarray and make it root of right subtree of a
 
 
+function printNodeValue(node) {
+  console.log(node.data);
+}
