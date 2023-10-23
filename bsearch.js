@@ -177,7 +177,32 @@ return results*/
 
 }
  
+//preorder(root) if not root return none - process root -
+//recursive call preorder on root.left
+//recursive call preorder on root.right
+preorder(callbackFn, currentNode=this.root,preorderList=[]){
 
+if (currentNode === null)return;
+callbackFn ? callbackFn(currentNode):preorderList.push(currentNode.data);
+if(currentNode.leftChild){this.preorder(callbackFn,currentNode.leftChild,preorderList)};
+if(currentNode.rightChild){this.preorder(callbackFn,currentNode.rightChild,preorderList)};
+if(preorderList.length>0)return preorderList;
+
+
+
+}
+//this traversal is useful for deleting a tree with childless nodes
+//if not root return ///// postorder(root.left) - > postorder(root.right) -->process(root) with callback if needed
+//
+postOrder(callbackFn, currentNode=this.root,postOrderList=[]){
+if(currentNode === null) return;
+if(currentNode.leftChild){this.postOrder(callbackFn,currentNode.leftChild,postOrderList)};
+if(currentNode.rightChild){this.postOrder(callbackFn,currentNode.rightChild,postOrderList)};
+callbackFn ? callbackFn(currentNode):postOrderList.push(currentNode.data);
+if(postOrderList.length>0)return postOrderList;
+
+
+}
 
 
 
