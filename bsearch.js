@@ -204,10 +204,27 @@ if(postOrderList.length>0)return postOrderList;
 
 }
 
+/*
+If node is null return -1
+calculate the height of the left subtree -- call height recursively for node left child and store result
+calculate height of right subtree -- call height recursively for node right child and store result
+compare the heights of the left and right
+return the larger height value plus 1 to account for the current node's edge to it's child
+*/
+height(node=this.root){
+  if(node === null)return -1;
+let leftHeight = this.height(node.leftChild);
+let rightHeight = this.height(node.rightChild);
+return Math.max(leftHeight,rightHeight)+1;
+}
 
+//returning depth you would want to go to the node and then work back up to the root
+//count for each parent node? 
+depth(node=this.root){
+  if(node===null)return 0;
 
-
-
+    
+}
 
 
 
