@@ -218,11 +218,21 @@ let rightHeight = this.height(node.rightChild);
 return Math.max(leftHeight,rightHeight)+1;
 }
 
-//returning depth you would want to go to the node and then work back up to the root
-//count for each parent node? 
-depth(node=this.root){
-  if(node===null)return 0;
+//no parent nodes
+//want to start at root and go down to the node input, counting how many branches
 
+depth(nodeValue,node=this.root, depthCount=0){
+  if(node===null)return -1;
+  if (node.data === nodeValue)return depthCount; //return 0 if node is the root
+
+  //go through each node on left or right recursively checking if our value is greater or  less than and add one to that sides depth count 
+  //need to return the recursive call so that depthCount increments appropriately
+  if(node.data > nodeValue){return this.depth(nodeValue, node.leftChild, depthCount+1)}
+  else {return this.depth(nodeValue, node.rightChild, depthCount+1);}
+ 
+
+  
+  
     
 }
 
