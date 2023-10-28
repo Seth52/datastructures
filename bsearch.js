@@ -229,14 +229,34 @@ depth(nodeValue,node=this.root, depthCount=0){
   //need to return the recursive call so that depthCount increments appropriately
   if(node.data > nodeValue){return this.depth(nodeValue, node.leftChild, depthCount+1)}
   else {return this.depth(nodeValue, node.rightChild, depthCount+1);}
- 
+ }
 
-  
-  
-    
+ // need to check every node's left height vs right height
+ //
+ isBalanced(){
+  return this.#testBalance(this.root) !== -1;
+
+}
+rebalance(){
+let balancedTree = this.preorder();
+this.root = this.buildTree(balancedTree);
+
 }
 
+//separate out for recursion so that isBalanced can return true or false
+#testBalance(node){
+  if(node == null)return 0;
 
+  let leftCount =this.#testBalance(node.leftChild);
+  if(leftCount === -1) return -1;
+  let rightCount = this.#testBalance(node.rightChild);
+  if (rightCount === -1) return -1; 
+  let diff = Math.abs(leftCount-rightCount);
+  if(diff>1) return -1;
+  
+return Math.max(leftCount,rightCount)+1;
+
+}
 
 
 
@@ -262,6 +282,3 @@ depth(nodeValue,node=this.root, depthCount=0){
 //recursively calc mid of right subarray and make it root of right subtree of a
 
 
-function printNodeValue(node) {
-  console.log(node.data);
-}
