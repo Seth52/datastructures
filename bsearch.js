@@ -135,7 +135,7 @@ levelOrder(callbackFn){
 //put the root node in the q 
 //if has left or right nodes// put those in q and then put root node in
 //visited aray. 
-//recursively do the same thing for the other nodes
+
 const q = [this.root];
 const levelOrder = [];
 
@@ -144,7 +144,7 @@ if(q[0].leftChild){q.push(q[0].leftChild)};
 if(q[0].rightChild){q.push(q[0].rightChild)};
 if(callbackFn)callbackFn(q[0])
 
-levelOrder.push(q.shift());
+levelOrder.push(q[0].data);q.shift();
 
 }
 
@@ -238,7 +238,7 @@ depth(nodeValue,node=this.root, depthCount=0){
 
 }
 rebalance(){
-let balancedTree = this.preorder();
+let balancedTree = this.inorder();
 this.root = this.buildTree(balancedTree);
 
 }
